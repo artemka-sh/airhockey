@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://d4c6jx2mlhca0"]
+
+[ext_resource type="Texture2D" uid="uid://c7v60hyy705ks" path="res://arts/background.png" id="1_88tym"]
+[ext_resource type="Script" path="res://scripts/main.cs" id="1_ihhf7"]
+[ext_resource type="PackedScene" uid="uid://13y6oksbf3t" path="res://scenes/puck.tscn" id="2_cbbbm"]
+[ext_resource type="PackedScene" uid="uid://d1pq8e6p1dtk3" path="res://scenes/stick.tscn" id="3_jcoee"]
+[ext_resource type="PackedScene" uid="uid://c4phji1u2oq24" path="res://scenes/gates.tscn" id="5_yco0k"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4dd60"]
+bounce = 1.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qf05t"]
+a = Vector2(578, 34)
+b = Vector2(577, 617)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xicbk"]
+a = Vector2(41, 218)
+b = Vector2(41, 459)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ihhf7")
+puckScene = ExtResource("2_cbbbm")
+
+[node name="Table" type="StaticBody2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+physics_material_override = SubResource("PhysicsMaterial_4dd60")
+
+[node name="Sprite2D" type="Sprite2D" parent="Table"]
+position = Vector2(571, 321.5)
+scale = Vector2(1.52235, 1.51345)
+texture = ExtResource("1_88tym")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Table"]
+polygon = PackedVector2Array(2, 211, 46, 211, 46, 92, 50, 74, 55, 65, 63, 56, 73, 51, 79, 49, 88, 47, 1068, 48, 1083, 52, 1092, 58, 1101, 67, 1106, 79, 1108, 89, 1108, 211, 1150, 211, 1400, -13, 1374, 670, 1153, 437, 1106, 437, 1108, 563, 1104, 577, 1096, 588, 1084, 598, 1070, 603, 84, 603, 71, 598, 60, 591, 51, 579, 46, 565, 46, 437, 1, 435, -338, 660, -344, 1019, 1749, 1029, 1758, -361, -320, -359, -315, -49)
+
+[node name="puck" parent="." instance=ExtResource("2_cbbbm")]
+position = Vector2(578, 323)
+gravity_scale = 0.0
+
+[node name="PuckStartPosition" type="Marker2D" parent="."]
+position = Vector2(578, 323)
+
+[node name="blue" parent="." instance=ExtResource("3_jcoee")]
+position = Vector2(336, 326)
+Speed = 150.0
+color = 2
+side = 2
+
+[node name="LeftStickStartPosition" type="Marker2D" parent="."]
+position = Vector2(150, 326)
+
+[node name="red" parent="." instance=ExtResource("3_jcoee")]
+position = Vector2(806, 323)
+Speed = 150.0
+color = 4
+side = 4
+
+[node name="RightStickStartPosition" type="Marker2D" parent="."]
+position = Vector2(995, 323)
+
+[node name="SticksBarriers" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SticksBarriers"]
+shape = SubResource("SegmentShape2D_qf05t")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SticksBarriers"]
+position = Vector2(3, -20)
+shape = SubResource("SegmentShape2D_xicbk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SticksBarriers"]
+position = Vector2(1069, -16)
+shape = SubResource("SegmentShape2D_xicbk")
+
+[node name="LeftGates" parent="." instance=ExtResource("5_yco0k")]
+position = Vector2(-87, 326)
+
+[node name="RightGates" parent="." instance=ExtResource("5_yco0k")]
+position = Vector2(1238, 323)

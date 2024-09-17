@@ -9,6 +9,7 @@ bounce = 0.5
 radius = 34.0147
 
 [node name="Puck" type="RigidBody2D"]
+collision_mask = 9
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_pgi3b")
 
